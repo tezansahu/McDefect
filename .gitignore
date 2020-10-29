@@ -1,0 +1,4 @@
+*.hdf5
+dataset_*/
+.vscode
+__pycache__/
