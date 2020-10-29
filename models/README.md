@@ -2,8 +2,8 @@
 
 Following are the weights for the Deep Neural Models that have been developed as a part of this project:
 
-- __Defect Detection:__ [`defect_detection_vgg16.hdf5`](https://drive.google.com/file/d/16PxIWtCWT-YXCSnk9uNgBQYgxPpoweHm/view?usp=sharing)
-- __Defect Classification:__ [`defect_classification_vgg16.hdf5`](https://drive.google.com/file/d/1jTsQ9Mh3r0pzBOIT1yXUeJK6EX5uTmZY/view?usp=sharing)
+- __Defect Detection:__ [`defect_detection_vgg16.hdf5`](https://drive.google.com/file/d/1TLaEuDm_GJ5h-zi7f1E-Nr2n4bGRRbr_/view?usp=sharing)
+- __Defect Classification:__ [`defect_classification_vgg16.hdf5`](https://drive.google.com/file/d/1OdA9lB7lfvWxQZKCLMNvEmmXWchUbhuj/view?usp=sharing)
 
 ## Defect Detection & Classification Models
 
