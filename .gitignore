@@ -1,4 +1,6 @@
 *.hdf5
+*.h5
 dataset_*/
 .vscode
 __pycache__/
+.ipynb_checkpoints/
