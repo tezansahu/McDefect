@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
-from router import detect, classify
+from routers import detect, classify
 
 
 app = FastAPI()
