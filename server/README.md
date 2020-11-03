@@ -28,7 +28,8 @@ This directory contains the code for the RESTful API Server for McDefect Solutio
 To start the server, use the following command:
 
 ```bash
-$ uvicorn app:main
+$ cd app/
+$ uvicorn main:app
 ```
 
 This will start the server on `localhost:8000`
@@ -40,5 +41,5 @@ The documentation of this API will be available on `http://localhost:8000/docs`.
 To start the server on a different port, type in:
 
 ```bash
-$ uvicorn app:main --port <port_num>
+$ uvicorn main:app --port <port_num>
 ```
