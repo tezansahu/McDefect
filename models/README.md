@@ -22,7 +22,7 @@ MODEL_FILE = "pump_impeller_detection_retinanet.h5"
 model = models.load_model(model_path, backbone_name='resnet50')
 ```
 
-_**Note:** To use `keras_retinanet`, the [corresponding repository]() must be downloaded & set up. The setup steps can also be found in the [training notebook](./ObjectDetectionRetinanet.ipynb)._
+_**Note:** To use `keras_retinanet`, the [corresponding repository](https://github.com/fizyr/keras-retinanet) must be downloaded & set up. The setup steps can also be found in the [training notebook](./ObjectDetectionRetinanet.ipynb)._
 
 
 ## Defect Detection & Classification Models

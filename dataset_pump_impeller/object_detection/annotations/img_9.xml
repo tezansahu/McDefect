@@ -1,0 +1,26 @@
+<annotation>
+  <folder>images</folder>
+  <filename>img_9</filename>
+  <path>D:\Tezan\Acads\Sem7\IITB_Courses\ME781\Project\McDefect\dataset_pump_impeller\object_detection\images\img_9.jpeg</path>
+  <source>
+    <database>Unknown</database>
+  </source>
+  <size>
+    <width>300</width>
+    <height>300</height>
+    <depth>1</depth>
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>pump_impeller</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>1</xmin>
+      <ymin>1</ymin>
+      <xmax>298</xmax>
+      <ymax>298</ymax>
+    </bndbox>
+  </object>
+</annotation>
