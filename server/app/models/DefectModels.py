@@ -1,9 +1,11 @@
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import numpy as np
+from termcolor import colored
 
 class DefectDetection:
     def __init__(self, model_file_path="./models/defect_detection_vgg16.hdf5"):
+        print(colored("INFO", "green"), ": \tLoading Defect Detection Model...")
         self.model = load_model(model_file_path)
         self.WIDTH = 224
         self.HEIGHT = 224
@@ -11,6 +13,7 @@ class DefectDetection:
             0: "Defective",
             1: "OK"
         }
+        
 
     def predict(self, img_file):
         img = image.load_img(img_file, target_size=(self.WIDTH, self.HEIGHT))
@@ -18,10 +21,12 @@ class DefectDetection:
         x = np.expand_dims(x, axis=0)
         conf = self.model.predict(x)
         prediction = np.argmax(conf[0])
+        print(self.labels[prediction])
         return {"prediction": self.labels[prediction]}
 
 class DefectClassification:
     def __init__(self, model_file_path="./models/defect_classification_vgg16.hdf5", labels=None):
+        print(colored("INFO", "green"), ": \tLoading Defect Classification Model...")
         self.model = load_model(model_file_path)
         self.WIDTH = 224
         self.HEIGHT = 224

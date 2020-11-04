@@ -1,5 +1,5 @@
 from fastapi import APIRouter, File, UploadFile
-from models.Models import DefectClassification
+from models.DefectModels import DefectClassification
 import shutil
 import os
 
