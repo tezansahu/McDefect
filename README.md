@@ -21,19 +21,19 @@ decrease in defects dropped after a couple of years.
 
 ## Business Case
 
-- **Strategic context​:** Tapping the defect detection in early stages of manufacturing processes (like casting, rolling, etc.) using Convolutional Neural Network to save time and efforts, improve process efficiency and reduce wastage (thus, reducing costs) for customers.
+- **Strategic context:** Tapping the defect detection in early stages of manufacturing processes (like casting, rolling, etc.) using Convolutional Neural Network to save time and efforts, improve process efficiency and reduce wastage (thus, reducing costs) for customers.
 
-- **Economic analysis​:** ​Return on the usage of services provided on API to the manufacturing company
+- **Economic analysis:** Return on the usage of services provided on API to the manufacturing company
 
-- **Commercial approach​:**​ Datasets are collected from the specified company for the process and then the model is trained on it.
+- **Commercial approach:** Datasets are collected from the specified company for the process and then the model is trained on it.
 
-- **Financial case​:**​ Since it is a technological solution, no large investments are required. Initial datasets to train models are available for free. Thus, affordability is not an issue here.
+- **Financial case:** Since it is a technological solution, no large investments are required. Initial datasets to train models are available for free. Thus, affordability is not an issue here.
 
-- **Management approach​:**​ For roles and responsibilities, refer to RASIC + GANTT chart. New developments/updates in API will be made in later stages to improve the products from customer perspective + services and attract more customers.
+- **Management approach:** For roles and responsibilities, refer to RASIC + GANTT chart. New developments/updates in API will be made in later stages to improve the products from customer perspective + services and attract more customers.
 
-- **Risk analysis:**​ ​The following are some key risks
-    - A. Initial trust by the manufacturing industry on technological solutions.
-    - B. Dataset compatibility with the model and/or API integration with the existing structure of the company might fail.
+- **Risk analysis:** The following are some key risks
+    -  Initial trust by the manufacturing industry on technological solutions.
+    -  Dataset compatibility with the model and/or API integration with the existing structure of the company might fail.
 
 
 ## Requirements
