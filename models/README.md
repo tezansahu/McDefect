@@ -3,7 +3,7 @@
 Following are the weights for the Deep Neural Models that have been developed as a part of this project:
 
 - __Object Detection:__ [`pump_impeller_detection_retinanet.h5`](https://drive.google.com/file/d/1QGebcE24wIKiALsztVm0wLPkMKBS4LSI/view?usp=sharing)
-- __Defect Detection:__ [`defect_detection_vgg16.hdf5`](https://drive.google.com/file/d/1TLaEuDm_GJ5h-zi7f1E-Nr2n4bGRRbr_/view?usp=sharing)
+- __Defect Detection:__ [`defect_detection_vgg16.hdf5`](https://drive.google.com/file/d/11o3l6DGXZf0Et1nvkaf0aSQHdGXsi8BU/view?usp=sharing)
 - __Defect Classification:__ [`defect_classification_vgg16.hdf5`](https://drive.google.com/file/d/1OdA9lB7lfvWxQZKCLMNvEmmXWchUbhuj/view?usp=sharing)
 
 ## Object Detection Model
@@ -29,7 +29,7 @@ _**Note:** To use `keras_retinanet`, the [corresponding repository](https://gith
 
 The Defect Detection & Defect Classification Models (for our demo) have been trained using Transfer Learning, with VGG16 as the base model.
 
-The Defect Detection model has been trained on the [Submersible Pump Impeller Defect Dataset](https://www.kaggle.com/ravirajsinh45/real-life-industrial-dataset-of-casting-product). The entire training can be found in [this notebook](./DefectDetectionVGG.ipynb). We achieve a training accuracy of _92.71 %_ and a test accuracy of _98.88 %_.
+The Defect Detection model has been trained on the [Submersible Pump Impeller Defect Dataset](https://www.kaggle.com/ravirajsinh45/real-life-industrial-dataset-of-casting-product). The entire training can be found in [this notebook](./DefectDetectionVGG.ipynb). We achieve a test accuracy of _95.14 %_.
 
 The Defect Classification model has been trained on the [Metal Surface Defect Dataset](https://www.kaggle.com/fantacher/neu-metal-surface-defects-data). The entire training can be found in [this notebook](./DefectClassificationVGG.ipynb). We achieve a training accuracy of _91.3 %_ and a test accuracy of _100 %_.
 
