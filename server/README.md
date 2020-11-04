@@ -9,18 +9,22 @@ This directory contains the code for the RESTful API Server for McDefect Solutio
 │   ├── main.py
 │   ├── models
 │   │   ├── __init__.py
-│   │   ├── Models.py
-│   └── routers
-│       ├── __init__.py
-│       ├── classify.py
-│       └── detect.py
+│   │   ├── DefectModels.py
+|   |   └── ObjectModels.py
+│   ├── routers
+│   │   ├── __init__.py
+│   │   ├── classify.py
+│   │   └── detect.py
+│   └── utils
+│   │   ├── __init__.py
+|   |   └── utils.py
 └── requirements.txt
 ```
 
 ## Setup
 
 1. Install all the necessary dependencies using `pip install -r requirements.txt`
-2. Download the [`defect_detection_vgg16.hdf5`](https://drive.google.com/file/d/1TLaEuDm_GJ5h-zi7f1E-Nr2n4bGRRbr_/view?usp=sharing) & [`defect_classification_vgg16.hdf5`](https://drive.google.com/file/d/1OdA9lB7lfvWxQZKCLMNvEmmXWchUbhuj/view?usp=sharing) models, & store them in the `app/models/` directory
+2. Download the [`defect_detection_vgg16.hdf5`](https://drive.google.com/file/d/11o3l6DGXZf0Et1nvkaf0aSQHdGXsi8BU/view?usp=sharing) & [`defect_classification_vgg16.hdf5`](https://drive.google.com/file/d/1OdA9lB7lfvWxQZKCLMNvEmmXWchUbhuj/view?usp=sharing) models, & store them in the `app/models/` directory
 
 
 ## Usage
