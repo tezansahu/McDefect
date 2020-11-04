@@ -64,6 +64,9 @@ Three Deep Neural Models that have been developed as a part of this project, for
 Details about the models, inculding their training, performance & downloadable weights can be found [here](./models/README.md).
 
 ## Deployment
+The overall system architecture of McDefect Solutions is presented below:
+
+![UML Component Diagram](./figures/uml_component_diagram.jpg)
 
 We use __FastAPI__ for building the RESTful API server for deploying the models. The code, along with the steps to set up the server can be found [here](./server/README.md)
 
