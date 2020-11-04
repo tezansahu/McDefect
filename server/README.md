@@ -10,14 +10,14 @@ This directory contains the code for the RESTful API Server for McDefect Solutio
 │   ├── models
 │   │   ├── __init__.py
 │   │   ├── DefectModels.py
-|   |   └── ObjectModels.py
+│   │   └── ObjectModels.py
 │   ├── routers
 │   │   ├── __init__.py
 │   │   ├── classify.py
 │   │   └── detect.py
 │   └── utils
 │   │   ├── __init__.py
-|   |   └── utils.py
+│   │   └── utils.py
 └── requirements.txt
 ```
 
@@ -40,7 +40,10 @@ This will start the server on `localhost:8000`
 
 You can visit `http://localhost:8000` on the browser to check that the server is working. It should display `This is the RESTful API for McDefect Solutions`.
 
-The documentation of this API will be available on `http://localhost:8000/docs`. It allows users to interact with the API as well.
+An interactive documentation of this API will be available on `http://localhost:8000/docs` (as shown below).
+
+![Server API Documentation](../figures/server_api_docs.png)
+
 
 To start the server on a different port, type in:
 
