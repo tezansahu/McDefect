@@ -43,15 +43,3 @@ def draw_bounding_boxes(img_file, detections):
             cv2.putText(im, detections[i]["defect_pred"], (b_box[0] - 10, b_box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
     return im    
-    
-    # filename = generate_file_name(prefix="defect_detection_")
-    # cv2.save(filename, im)
-
-    # return filename
-
-    
-
-        
-    
-    
-

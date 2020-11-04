@@ -4,7 +4,7 @@ import numpy as np
 from termcolor import colored
 
 class DefectDetection:
-    def __init__(self, model_file_path="./models/defect_detection_vgg16_new.hdf5"):
+    def __init__(self, model_file_path="./models/defect_detection_vgg16.hdf5"):
         print(colored("INFO", "green"), ": \tLoading Defect Detection Model...")
         self.model = load_model(model_file_path)
         self.WIDTH = 224

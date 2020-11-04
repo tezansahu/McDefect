@@ -17,7 +17,6 @@ object_detection_model = ObjectDetection()
 def extract_region_and_predict(img_name, b_box):
     saved_file = utils.extract_region(img_name, b_box)["filename"]
     prediction = defect_detection_model.predict(saved_file)
-    # prediction = defect_detection_model.predict(img_name)
     os.remove(saved_file)
     return prediction
 
@@ -50,7 +49,6 @@ async def post_defect_detection(img: UploadFile =File(...)):
     os.remove(img_name)
 
     with tempfile.NamedTemporaryFile(mode="w+b", suffix=".png", delete=False) as FOUT:
-        # FOUT.write(final_img)
         utils.save_img(final_img, filename=FOUT.name)
         return FileResponse(FOUT.name, media_type="image/png")
 
