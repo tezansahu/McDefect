@@ -40,6 +40,6 @@ def draw_bounding_boxes(img_file, detections):
 
         if color != None:
             cv2.rectangle(im, (b_box[0], b_box[1]), (b_box[2], b_box[3]), color, 2)
-            cv2.putText(im, detections[i]["defect_pred"], (b_box[0] - 10, b_box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+            cv2.putText(im, detections[i]["defect_pred"], (b_box[0] + 10, b_box[1] + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
     return im    

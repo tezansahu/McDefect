@@ -1,5 +1,6 @@
 from fastapi import APIRouter, File, UploadFile
 from starlette.responses import FileResponse
+from pydantic import BaseModel
 
 from models.DefectModels import DefectDetection
 from models.ObjectModels import ObjectDetection
@@ -8,11 +9,16 @@ import utils.utils as utils
 import shutil
 import os
 import tempfile
+import base64
 
 router = APIRouter()
 
 defect_detection_model = DefectDetection()
 object_detection_model = ObjectDetection()
+
+class ImageResult(BaseModel):
+    mime: str
+    image: str
 
 def extract_region_and_predict(img_name, b_box):
     saved_file = utils.extract_region(img_name, b_box)["filename"]
@@ -20,15 +26,7 @@ def extract_region_and_predict(img_name, b_box):
     os.remove(saved_file)
     return prediction
 
-@router.post(
-    "/", 
-    responses={
-        200: {
-            "content": {"image/png": {}},
-            "description": "Return image with objects arked as Defective of OK",
-        }
-    },
-)
+@router.post("/", response_model=ImageResult)
 async def post_defect_detection(img: UploadFile =File(...)):
     img_name = "temp-img.png"
     label_req = ["pump_impeller"]
@@ -50,6 +48,11 @@ async def post_defect_detection(img: UploadFile =File(...)):
 
     with tempfile.NamedTemporaryFile(mode="w+b", suffix=".png", delete=False) as FOUT:
         utils.save_img(final_img, filename=FOUT.name)
-        return FileResponse(FOUT.name, media_type="image/png")
+        encoded_image_string = base64.b64encode(FOUT.read())
+        # return FileResponse(FOUT.name, media_type="image/png")
+        return {
+            "mime" : "image/png",
+            "image": encoded_image_string,
+        }
 
 

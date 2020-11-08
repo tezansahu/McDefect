@@ -14,8 +14,6 @@ async def post_defect_classification(img: UploadFile =File(...)):
         shutil.copyfileobj(img.file, buffer)
 
     prediction = defect_classification_model.predict(img_name)
-
-    # TODO: Overlay a bounding box, with label & confidence on the image & return image
     
     os.remove(img_name)
     return prediction
