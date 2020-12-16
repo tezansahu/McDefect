@@ -29,7 +29,7 @@ _**Note:** To use `keras_retinanet`, the [corresponding repository](https://gith
 
 The Defect Detection & Defect Classification Models (for our demo) have been trained using Transfer Learning, with VGG16 as the base model.
 
-The __Defect Detection__ model has been trained on the [Submersible Pump Impeller Defect Dataset](https://www.kaggle.com/ravirajsinh45/real-life-industrial-dataset-of-casting-product). The entire training can be found in [this notebook](./DefectDetectionVGG.ipynb). We achieve a test accuracy of _95.14 %_. The plot for the performance of the model over training period is presented below:
+The __Defect Detection__ model has been trained on the [Submersible Pump Impeller Defect Dataset](https://www.kaggle.com/ravirajsinh45/real-life-industrial-dataset-of-casting-product). The entire training can be found in [this notebook](./DefectDetectionVGG.ipynb). We achieve a test accuracy of _98.88 %_. The plot for the performance of the model over training period is presented below:
 
 ![Defect Detection Performance](../figures/defect_detection_performance.png)
 

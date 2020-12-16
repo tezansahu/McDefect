@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>classify.py</title>
+  <link rel="stylesheet" href="../../../pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>classify.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <h2><span id="api-endpoints-for-defect-classification" href="api-endpoints-for-defect-classification"> API Endpoints for Defect Classification </span></h2>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p>Following are the implementations of the endpoint(s) used for the defect classification process.
+It uses the <code>DefectClassification</code> model, trained on the <a href="https://www.kaggle.com/fantacher/neu-metal-surface-defects-data">Metal Surface Defects Dataset</a>, &amp; available for use through
+the implementation in <a href="../models/DefectModels.html">models/DefectModels.py</a>.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">UploadFile</span>
+<span class="kn">from</span> <span class="nn">models.DefectModels</span> <span class="kn">import</span> <span class="n">DefectClassification</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+
+<span class="n">defect_classification_model</span> <span class="o">=</span> <span class="n">DefectClassification</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <h3><span id="implementation-of-**post-/classify**-endpoint" href="implementation-of-**post-/classify**-endpoint"> Implementation of <strong>POST /classify</strong> Endpoint </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>The function first stores the uploaded image temporarily in the local database of the server &amp; then uses the Defect Classification Model
+to predic the type of defect indicated in the image.</p>
+<p><strong>Parameters:</strong></p>
+<ol>
+<li><code>img</code>: image file uploaded to the API endpoint using the POST request</li>
+</ol>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">post_defect_classification</span><span class="p">(</span><span class="n">img</span><span class="p">:</span> <span class="n">UploadFile</span> <span class="o">=</span><span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+    <span class="n">img_name</span> <span class="o">=</span> <span class="s2">&quot;temp-img.png&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">img_name</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">buffer</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">defect_classification_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">img_name</span><span class="p">)</span>
+    
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">img_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">prediction</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

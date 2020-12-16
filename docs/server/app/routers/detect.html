@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>detect.py</title>
+  <link rel="stylesheet" href="../../../pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>detect.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <h2><span id="api-endpoints-for-defect-detection" href="api-endpoints-for-defect-detection"> API Endpoints for Defect Detection </span></h2>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p>Following are the implementations of the endpoint(s) used for the defect detection process.
+It uses the <code>ObjectDetection</code> &amp; <code>DefectDetection</code> models, trained on the <a href="https://www.kaggle.com/ravirajsinh45/real-life-industrial-dataset-of-casting-product">Submersible Pump Impeller Defect Dataset</a>, &amp; available for use through
+the implementation in <a href="../models/ObjectModels.html">models/ObjectModels.py</a> &amp; <a href="../models/DefectModels.html">models/DefectModels.py</a> respectively.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">UploadFile</span>
+<span class="kn">from</span> <span class="nn">starlette.responses</span> <span class="kn">import</span> <span class="n">FileResponse</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="kn">from</span> <span class="nn">models.DefectModels</span> <span class="kn">import</span> <span class="n">DefectDetection</span>
+<span class="kn">from</span> <span class="nn">models.ObjectModels</span> <span class="kn">import</span> <span class="n">ObjectDetection</span>
+<span class="kn">import</span> <span class="nn">utils.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+
+<span class="n">defect_detection_model</span> <span class="o">=</span> <span class="n">DefectDetection</span><span class="p">()</span>
+<span class="n">object_detection_model</span> <span class="o">=</span> <span class="n">ObjectDetection</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">class</span> <span class="nc">ImageResult</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">mime</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">image</span><span class="p">:</span> <span class="nb">str</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <h3><span id="extract-a-region-of-interest-&-predict-defect-presence" href="extract-a-region-of-interest-&-predict-defect-presence"> Extract a Region of Interest &amp; Predict Defect Presence </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>This function extracts the region of interest from the image 
+(the area containing the part detected by our Object Detection model)
+using the function mentioned in <a href="../utils/utils.html">utils/utils.py</a>. </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">extract_region_and_predict</span><span class="p">(</span><span class="n">img_name</span><span class="p">,</span> <span class="n">b_box</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Once extracted, the Defect Detection model is used to predict the 
+presence of any defect in the part.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    
+    <span class="n">saved_file</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">extract_region</span><span class="p">(</span><span class="n">img_name</span><span class="p">,</span> <span class="n">b_box</span><span class="p">)[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">prediction</span> <span class="o">=</span> <span class="n">defect_detection_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">saved_file</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">saved_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">prediction</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <h3><span id="implementation-of-post-/detect-endpoint" href="implementation-of-post-/detect-endpoint"> Implementation of POST /detect Endpoint </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>The function first detects all objects present in an image 
+&amp; then predicts whether or not each of them is defective</p>
+<p><strong>Parameters:</strong></p>
+<ol>
+<li><code>img</code>: image file uploaded to the API endpoint using the POST request</li>
+</ol>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">ImageResult</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">post_defect_detection</span><span class="p">(</span><span class="n">img</span><span class="p">:</span> <span class="n">UploadFile</span> <span class="o">=</span><span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p>It first stores the uploaded image temporarily in the local database 
+of the server runs it through our Object Detection pipeline.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">img_name</span> <span class="o">=</span> <span class="s2">&quot;temp-img.png&quot;</span>
+    <span class="n">label_req</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pump_impeller&quot;</span><span class="p">]</span>
+
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">img_name</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">buffer</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>The bounding boxes of the detected parts are returned as a dictionary. 
+For each detected part, the region of interest is selected using the 
+bounding box &amp; a prediction is made as to whether or not it contains 
+any defect based on our Defect Detection Model.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">detections</span> <span class="o">=</span> <span class="n">object_detection_model</span><span class="o">.</span><span class="n">detect_objects</span><span class="p">(</span><span class="n">img_name</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">detections</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">detections</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">label_req</span><span class="p">:</span>
+            <span class="n">b_box</span> <span class="o">=</span> <span class="n">detections</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;bounding_box&quot;</span><span class="p">]</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">extract_region_and_predict</span><span class="p">(</span><span class="n">img_name</span><span class="p">,</span> <span class="n">b_box</span><span class="p">)</span>
+            <span class="n">detections</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;defect_pred&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">]</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <p>These predictions are used to draw colored bounding boxes around the detected parts</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">final_img</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">draw_bounding_boxes</span><span class="p">(</span><span class="n">img_name</span><span class="p">,</span> <span class="n">detections</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      <p>The new image with colored bounding boxes is converted to base64 &amp; returned 
+as a string to the client for being displayed</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">img_name</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w+b&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">FOUT</span><span class="p">:</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">save_img</span><span class="p">(</span><span class="n">final_img</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">FOUT</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">encoded_image_string</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">FOUT</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;mime&quot;</span> <span class="p">:</span> <span class="s2">&quot;image/png&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">encoded_image_string</span><span class="p">,</span>
+        <span class="p">}</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

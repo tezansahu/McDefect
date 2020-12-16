@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>utils.py</title>
+  <link rel="stylesheet" href="../../../pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>utils.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      <h2><span id="utility-functions" href="utility-functions"> Utility Functions </span></h2>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p>Here, we define some utility functions that are used to implement the functionality at the various API endpoints in our server</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">random</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <h3><span id="generate-a-file-name" href="generate-a-file-name"> Generate a File Name </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>Function to generate a random-looking filename given a prefix &amp; an extension along with the number of characters in the random portion of the filename.</p>
+<p><strong>Parameters:</strong></p>
+<ol>
+<li><code>num_char</code> : number of characters in the random portion of the filename (default = 10)</li>
+<li><code>prefix</code> : prefix of the file (default = &ldquo;img_&rdquo;)</li>
+<li><code>extension</code>: file extension required (default = &ldquo;.png&rdquo;)</li>
+</ol>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">generate_file_name</span><span class="p">(</span><span class="n">num_char</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;img_&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;.png&quot;</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_char</span><span class="p">)])</span> <span class="o">+</span> <span class="n">extension</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <h3><span id="save-an-image" href="save-an-image"> Save an Image </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Function to generate a filename for an image (if not already provided) &amp; then save it on the server</p>
+<p><strong>Parameters:</strong></p>
+<ol>
+<li><code>img</code> : image to be saved</li>
+<li><code>prefix</code> : prefix of the file (default = &ldquo;img_&rdquo;)</li>
+<li><code>extension</code>: file extension required (default = &ldquo;.png&rdquo;)</li>
+<li><code>filename</code>: name of the file (should be None if a file name has to be generated)</li>
+</ol>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">save_img</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;img_&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">filename</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">generate_file_name</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">extension</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">filename</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <h3><span id="extract-a-region-from-an-image" href="extract-a-region-from-an-image"> Extract a Region from an Image </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>Function to extract a region from an image file given a bounding box</p>
+<p><strong>Parameters:</strong></p>
+<ol>
+<li><code>img_file</code>: name of the image file from which region has to be extracted</li>
+<li><code>bounding box</code>: opencv type coordinates of the bounding box for selecting the region of interest</li>
+<li><code>save</code>: boolean indicating if the extracted portion should be saved on the server</li>
+</ol>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">extract_region</span><span class="p">(</span><span class="n">img_file</span><span class="p">,</span> <span class="n">bounding_box</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">img_file</span><span class="p">)</span>
+    <span class="n">extracted</span> <span class="o">=</span> <span class="n">im</span><span class="p">[</span><span class="n">bounding_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">bounding_box</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">bounding_box</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">bounding_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+    
+    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;extracted_img&quot;</span><span class="p">:</span> <span class="n">extracted</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">response</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">save_img</span><span class="p">(</span><span class="n">extracted</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">response</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <h3><span id="draw-bounding-boxes-for-regions-detected-by-a-model" href="draw-bounding-boxes-for-regions-detected-by-a-model"> Draw Bounding Boxes for Regions Detected by a Model </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p>Function to draw colored bounding boxes around parts detected by the model indicating if the part of defective of fine.
+The parts marked <em>Defective</em> are bounded by a Red box, while those marked <em>OK</em> are bounded using a Green box.</p>
+<p><strong>Parameters:</strong></p>
+<ol>
+<li><code>img_file</code>: name of the image file on which bounding boxes have to be drawn</li>
+<li><code>detections</code>: dictionary of object detections along with their defect markings for the image (produced by the model)</li>
+</ol>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">draw_bounding_boxes</span><span class="p">(</span><span class="n">img_file</span><span class="p">,</span> <span class="n">detections</span><span class="p">):</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">img_file</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">detections</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">b_box</span> <span class="o">=</span> <span class="n">detections</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;bounding_box&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">detections</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;defect_pred&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;OK&quot;</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">detections</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;defect_pred&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Defective&quot;</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">color</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">(</span><span class="n">b_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">b_box</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">b_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">color</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">detections</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;defect_pred&quot;</span><span class="p">],</span> <span class="p">(</span><span class="n">b_box</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">20</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">im</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>
