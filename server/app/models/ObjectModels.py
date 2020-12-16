@@ -44,9 +44,9 @@ Store bounding box details for valid detections (confidence > threshold)
         bounding_boxes = {}
         count = 0
         for box, score, label in zip(boxes[0], scores[0], labels[0]):
-        """            
+            """            
 Scores are sorted in descending order so that we can `break` on reaching below threshold
-        """
+            """
             if score < self.threshold:
                 break
 
