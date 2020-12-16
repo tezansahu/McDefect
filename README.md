@@ -88,7 +88,7 @@ The website & demo portal for uploading images (& videos) for defect detection o
 
 - [Product Brochure](./brochure.pdf)
 - [Marketing Video](./client/assets/marketing_video.mp4)
-- User Manual (to be added)
+- [User Manual](./user_manual.pdf) 
 
 <!-- ## Future Direction
 

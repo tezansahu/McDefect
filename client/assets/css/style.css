@@ -2234,3 +2234,26 @@ section {
   color: #fff;
   text-decoration: none;
 }
+
+.contact .about-btn {
+  padding: 8px 30px 9px 30px;
+  color: #fff;
+  border-radius: 50px;
+  transition: 0.3s;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #e03a3c;
+}
+
+.contact .about-btn i {
+  font-size: 16px;
+  padding-left: 5px;
+}
+
+.contact .about-btn:hover {
+  background: #e35052;
+  background: #e03a3c;
+}
