@@ -81,7 +81,7 @@ The website & demo portal for uploading images (& videos) for defect detection o
 - [Project Planning](./reports/2_ProjectPlanning.pdf)
 - [Conceptual Design](./reports/3_ConceptualDesignReport.pdf)
 - [Model Training & Testing Report](./reports/4_ModelTraining&TestingReport.pdf)
-- Unit Testing Report (to be added)
+- [Unit Testing Report](./reports/5_UnitTestingReport.pdf)
 
 
 ## Marketing & Demonstration
