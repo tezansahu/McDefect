@@ -4,7 +4,6 @@
 
 
 
-
 ## Business Problem
 
 - India ranks 3rd in global manufacturing locations in the world and production of the basic metal is the highest contributor in the GDP of the manufacturing industry, (i.e. about 11%). In 2016, PM Narendra Modi started an initiative __"​Zero defect zero effect​"__ aimed at reducing the defects in manufacturing as well as ecological effects. Even though the initiative saw a good start, it hasn't achieved enough success as the
@@ -73,6 +72,8 @@ We use __FastAPI__ for building the RESTful API server for deploying the models.
 
 
 The website & demo portal for uploading images (& videos) for defect detection or classification is built using __HTML__, __CSS__ & __JavaScript__. The code & relevant information about McDefect Solutions can be found [here](./client/README.md). 
+
+## [Demo Video](https://youtu.be/WidWyng9FWc)
 
 ## Reports
 
