@@ -33,18 +33,18 @@ class ImageResult(BaseModel):
 
 
 def extract_region_and_predict(img_name, b_box):
-"""
+    """
 This function extracts the region of interest from the image 
 (the area containing the part detected by our Object Detection model)
 using the function mentioned in [utils/utils.py](../utils/utils.html). 
-"""
-    
+    """
+
     saved_file = utils.extract_region(img_name, b_box)["filename"]
 
-"""
+    """
 Once extracted, the Defect Detection model is used to predict the 
 presence of any defect in the part.
-"""
+    """
     prediction = defect_detection_model.predict(saved_file)
     os.remove(saved_file)
     return prediction
@@ -54,14 +54,14 @@ presence of any defect in the part.
 
 @router.post("/", response_model=ImageResult)
 async def post_defect_detection(img: UploadFile =File(...)):
-"""
+    """
 The function first detects all objects present in an image 
 & then predicts whether or not each of them is defective
 
 **Parameters:**
 
 1. `img`: image file uploaded to the API endpoint using the POST request
-"""
+    """
 
     img_name = "temp-img.png"
     label_req = ["pump_impeller"]
@@ -69,10 +69,10 @@ The function first detects all objects present in an image
 
     with open(img_name, "wb") as buffer:
         shutil.copyfileobj(img.file, buffer)
-"""
+    """
 It first stores the uploaded image temporarily in the local database 
 of the server runs it through our Object Detection pipeline.
-"""
+    """
 
     detections = object_detection_model.detect_objects(img_name)
     
@@ -82,17 +82,17 @@ of the server runs it through our Object Detection pipeline.
             pred = extract_region_and_predict(img_name, b_box)
             detections[i]["defect_pred"] = pred["prediction"]
 
-"""
+    """
 The bounding boxes of the detected parts are returned as a dictionary. 
 For each detected part, the region of interest is selected using the 
 bounding box & a prediction is made as to whether or not it contains 
 any defect based on our Defect Detection Model.
-"""
+    """
     final_img = utils.draw_bounding_boxes(img_name, detections)
 
-"""
+    """
 These predictions are used to draw colored bounding boxes around the detected parts
-"""
+    """
 
     os.remove(img_name)
 
@@ -104,7 +104,7 @@ These predictions are used to draw colored bounding boxes around the detected pa
             "image": encoded_image_string,
         }
 
-"""
+    """
 The new image with colored bounding boxes is converted to base64 & returned 
 as a string to the client for being displayed
-"""
+    """
