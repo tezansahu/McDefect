@@ -1,8 +1,9 @@
-# McDefect Solutions
+# McDefect Solutions <img src='client/assets/img/logo.png' align="right" height="140" />
 
 **_"Supporting You, Defect by Defect"_**
 
-![{TODO: Demo GIF Embedded}]()
+
+
 
 ## Business Problem
 
@@ -70,9 +71,8 @@ The overall system architecture of McDefect Solutions is presented below:
 
 We use __FastAPI__ for building the RESTful API server for deploying the models. The code, along with the steps to set up the server can be found [here](./server/README.md)
 
-The portal for uploading images & videos for defect detection or classification is built using __HTML__, __CSS__ & __JavaScript__. Its details & code can be found [here](./client_portal/README.md)
 
-The code & information about the website for McDefect Solutions can be found [here](./website/README.md).
+The website & demo portal for uploading images (& videos) for defect detection or classification is built using __HTML__, __CSS__ & __JavaScript__. The code & relevant information about McDefect Solutions can be found [here](./client/README.md). 
 
 ## Reports
 
@@ -85,10 +85,10 @@ The code & information about the website for McDefect Solutions can be found [he
 
 ## Marketing & Demonstration
 
-- Brochure (to be added)
-- Marketing Presentation (to be added)
+- [Product Brochure](./brochure.pdf)
+- [Marketing Video](./client/assets/marketing_video.mp4)
 - User Manual (to be added)
 
-## Future Direction
+<!-- ## Future Direction
 
-[TODO]
+[TODO] -->
